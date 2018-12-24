@@ -30,19 +30,30 @@ class Game < ApplicationRecord
   validate :valid_board
 
   def score_difference
-    (player_score - opponent_score).abs if player_score && opponent_score
+    (player_score - opponent_score).abs if scores?
   end
 
-  def greater_or_equal_than_min_score?
-    player_score && opponent_score &&
-      (player_score >= MIN_SCORE || opponent_score >= MIN_SCORE)
+  def any_finish_score?
+    scores? && (player_score >= MIN_SCORE || opponent_score >= MIN_SCORE)
+  end
+
+  def extend?
+    scores? && player_score >= MIN_SCORE &&opponent_score >= MIN_SCORE
   end
 
   private
 
+  def scores?
+    player_score && opponent_score
+  end
+
   def valid_board
-    errors[:base] << 'at least one score must exceed 21 points' unless greater_or_equal_than_min_score?
-    errors[:base] << 'difference of points is different than 2' unless score_difference == 2
+    errors[:base] << 'at least one score must exceed 21 points' unless any_finish_score?
+    errors[:base] << 'extend game difference of points is less than than 2' if valid_extend_game?
+  end
+
+  def valid_extend_game?
+    extend? && score_difference != 2
   end
 
 end

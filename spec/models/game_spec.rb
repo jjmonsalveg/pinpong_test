@@ -11,27 +11,30 @@ RSpec.describe Game, type: :model do
       it { should validate_presence_of(:played_at) }
     end
 
-    context 'valid board' do
-      let(:game) { FactoryBot.build(:player_win) }
-      it 'at least one score is greater than 21 and score difference is 2' do
-        expect(game.save).to be_truthy
+    context 'finish with valid board' do
+      let(:normal_game) { FactoryBot.build(:player_win) }
+      let(:extend_game) { FactoryBot.build(:game, player_score: 31, opponent_score: 29) }
+      it 'normal game' do
+        expect(normal_game.save).to be_truthy
+      end
+
+      it 'finish extend game' do
+        expect(extend_game.save).to be_truthy
       end
     end
   end
 
-  describe 'invalid game' do
-    context 'invalid board' do
-      it 'no score exceeds 21 points' do
-        game = FactoryBot.build(:game, player_score: 17, opponent_score: 16)
-        game.valid?
-        expect(game.errors[:base]).to include('at least one score must exceed 21 points')
-      end
+  describe 'No finish game' do
+    it 'Scores less than 21' do
+      game = FactoryBot.build(:game, player_score: 17, opponent_score: 16)
+      game.valid?
+      expect(game.errors[:base]).to include('at least one score must exceed 21 points')
+    end
 
-      it 'difference of points is different than 2' do
-        game = FactoryBot.build(:game, player_score: 24, opponent_score: 21)
-        game.valid?
-        expect(game.errors[:base]).to include ('difference of points is different than 2')
-      end
+    it 'Extend game with difference of points is less than 2' do
+      game = FactoryBot.build(:game, player_score: 24, opponent_score: 21)
+      game.valid?
+      expect(game.errors[:base]).to include ('extend game difference of points is less than than 2')
     end
   end
 end

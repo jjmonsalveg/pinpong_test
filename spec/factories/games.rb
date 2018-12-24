@@ -3,8 +3,6 @@ FactoryBot.define do
     association :player, factory: :user
     association :opponent, factory: :user
     played_at Time.now
-    player_score 21
-    opponent_score 19
 
     factory :player_win do
       player_score 21
