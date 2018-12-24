@@ -53,7 +53,18 @@ RSpec.describe User, type: :model do
                                     fourth_user])
     end
 
-    it 'rank user' do
+    it 'rank of players at the start of the tournament' do
+      expect(User.leadboard.map(&:rank)).to eq [0, 0, 0, 0]
+    end
+
+
+    it 'rank of players in started tournament' do
+      game = FactoryBot.build(:opponent_win,
+                              player_id: second_user.id,
+                              opponent_id: leader_user.id,
+                              player_score: 19,
+                              opponent_score: 21)
+      game.save
       expect(User.leadboard.map(&:rank)).to eq [1, 2, 3, 4]
     end
 

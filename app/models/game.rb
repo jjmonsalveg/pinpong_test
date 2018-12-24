@@ -72,7 +72,10 @@ class Game < ApplicationRecord
   end
 
   def update_rank
+    leader = User.lead
     winner.update(score: winner.score + 1 + weight_game)
+    new_lead = User.lead
+    LeaderMailer.with(leader: new_lead).new_leader.deliver_later if new_lead != leader
   end
 
   def weight_game

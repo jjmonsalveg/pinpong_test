@@ -54,10 +54,13 @@ RSpec.describe Game, type: :model do
       loser = FactoryBot.create(:user, score: 0)
       game = FactoryBot.build(:opponent_win,
                               player_id: loser.id,
-                              opponent_id: winner.id, player_score: 19,
+                              opponent_id: winner.id,
+                              player_score: 19,
                               opponent_score: 21)
-      game.save
-      expect(winner.reload.score).to eq 0.5
+
+      expect{ game.save }.to change(ActionMailer::Base.deliveries, :count).by(1)
+      expect(ActionMailer::Base.deliveries.last.to).to include winner.email
+      expect(winner.reload.score).to eq 1
     end
   end
 

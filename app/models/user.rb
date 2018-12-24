@@ -48,10 +48,14 @@ class User < ApplicationRecord
   end
 
   def rank
-    @rank ||= self.class.leadboard.to_a.index(self) + 1
+    @rank ||= self.class.games? ?  self.class.leadboard.to_a.index(self) + 1 : 0
+  end
+
+  def self.games?
+    Game.any? && User.where('score > 0').any?
   end
 
   def self.lead
-    Game.any? ? all.order(score: :desc).first : nil
+    self.games? ? all.order(score: :desc).first : nil
   end
 end
