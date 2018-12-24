@@ -15,6 +15,14 @@ A. https://documenter.getpostman.com/view/688876/Rzn8RMyZ#565d2558-aed6-4acc-bdb
 
 B. Or import to Postman: /test ping pong.postman_collection.json
 
+#Production environment
+
+use URL variable equal to `damp-bayou-41719.herokuapp.com/` in postman
+
+#Development environment
+use URL variable equal to `localhost:3000` in postman
+
+
 ## Requirements
 
 The purpose of this API is to allow users to log their pingpong games and to
