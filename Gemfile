@@ -24,6 +24,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'active_model_serializers', '~> 0.10.0'
 gem 'will_paginate', '~> 3.1.0'
 gem 'delayed_job_active_record'
+gem 'faker'
+
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
@@ -60,8 +62,6 @@ end
 
 group :test do
   # A library for generating fake data such as names, addresses, and phone numbers.
-  gem 'faker'
-
   # Making tests easy on the fingers and eyes
   gem 'shoulda-matchers', '~> 3.1'
 
