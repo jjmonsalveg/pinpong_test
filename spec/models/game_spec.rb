@@ -37,4 +37,27 @@ RSpec.describe Game, type: :model do
       expect(game.errors[:base]).to include ('extend game difference of points is less than than 2')
     end
   end
+
+  context 'finished game' do
+    it 'has winner' do
+      game = FactoryBot.create(:player_win)
+      expect(game.winner.id).to eq(game.player_id)
+    end
+
+    it 'has loser' do
+      game = FactoryBot.create(:opponent_win)
+      expect(game.winner.id).to eq(game.opponent_id)
+    end
+
+    it 'update rank' do
+      winner = FactoryBot.create(:user, score: 0)
+      loser = FactoryBot.create(:user, score: 0)
+      game = FactoryBot.build(:opponent_win,
+                              player_id: loser.id,
+                              opponent_id: winner.id, player_score: 19,
+                              opponent_score: 21)
+      game.save
+      expect(winner.reload.score).to eq 0.5
+    end
+  end
 end

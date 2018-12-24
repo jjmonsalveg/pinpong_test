@@ -35,8 +35,14 @@ Design a solution to populate the leaderboard endpoint with rankings:
     ranked 5 should not count the same as a player ranked 5 beating a player
     ranked 1
   * When the leaderboard is first created all the users will be equal in ranking
-  * Document your approach
-
+  * Document your approach:
+  ```json
+     game_point(rank_player,rank_opponent)= { 
+        1 + (rank_player - rank_opponent)/#Users , rank_opponent < rank_player
+        1                                        , rank_opponent > rank_player
+     }
+ ```
+     
 **Please note the following**:
 
 * The framework of the API already allows users to register and sign in

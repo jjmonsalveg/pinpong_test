@@ -10,6 +10,7 @@
 #  password_digest :string(60)       not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  score           :float            default(0.0), not null
 #
 # Indexes
 #
@@ -31,10 +32,11 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :score, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: /@/ }
 
   # -- Scopes ---------------------------------------------------------------
-
+  scope :leadboard, -> { select('*, RANK() OVER(ORDER BY score DESC) AS ranking') }
   # -- Callbacks ------------------------------------------------------------
 
   # -- Class Methods --------------------------------------------------------
@@ -43,5 +45,13 @@ class User < ApplicationRecord
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def rank
+    @rank ||= self.class.leadboard.to_a.index(self) + 1
+  end
+
+  def self.lead
+    Game.any? ? all.order(score: :desc).first : nil
   end
 end

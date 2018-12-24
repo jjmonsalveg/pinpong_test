@@ -29,6 +29,8 @@ class Game < ApplicationRecord
   validates :played_at, presence: true
   validate :valid_board
 
+  after_create :update_rank
+
   def score_difference
     (player_score - opponent_score).abs if scores?
   end
@@ -39,6 +41,14 @@ class Game < ApplicationRecord
 
   def extend?
     scores? && player_score >= MIN_SCORE && opponent_score >= MIN_SCORE
+  end
+
+  def winner
+    @winner ||= player_score > opponent_score ? player : opponent
+  end
+
+  def loser
+    @loser ||= winner == player ? opponent : player
   end
 
   private
@@ -54,6 +64,14 @@ class Game < ApplicationRecord
 
   def invalid_extend_game?
     extend? && score_difference != 2
+  end
+
+  def update_rank
+    winner.update(score: winner.score + 1 + weight_game)
+  end
+
+  def weight_game
+    winner.score > loser.score ? 0 : (winner.rank - loser.rank).to_f / User.count
   end
 
 end

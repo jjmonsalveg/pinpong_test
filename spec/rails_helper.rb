@@ -69,4 +69,7 @@ Shoulda::Matchers.configure do |config|
     # Choose one or more libraries:
     with.library :rails
   end
+
+  require 'simplecov'
+  SimpleCov.start
 end
