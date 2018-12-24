@@ -27,7 +27,7 @@ games = 0
     board = results[rand(0..(results.size - 1))]
     Game.create player_id: i,
                 opponent_id: j,
-                played_at: Time.now + rand(1..10).days,
+                played_at: Time.now + (i + j).days,
                 player_score: board.first,
                 opponent_score: board.second
     games += 1

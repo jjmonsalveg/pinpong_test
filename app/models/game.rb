@@ -28,6 +28,7 @@ class Game < ApplicationRecord
   validates :opponent_score, presence: true
   validates :played_at, presence: true
   validate :valid_board
+  validate :gamers
 
   after_create :update_rank
 
@@ -52,6 +53,10 @@ class Game < ApplicationRecord
   end
 
   private
+
+  def gamers
+    errors[:base] << 'game need 2 gamers'  if player == opponent
+  end
 
   def scores?
     player_score && opponent_score

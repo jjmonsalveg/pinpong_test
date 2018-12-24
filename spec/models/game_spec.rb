@@ -60,4 +60,15 @@ RSpec.describe Game, type: :model do
       expect(winner.reload.score).to eq 0.5
     end
   end
+
+  it 'need 2 users' do
+    uniq_player = FactoryBot.create(:user, score: 0)
+    game = FactoryBot.build(:opponent_win,
+                            player_id: uniq_player.id,
+                            opponent_id: uniq_player.id,
+                            player_score: 19,
+                            opponent_score: 21)
+    game.valid?
+    expect(game.errors[:base]).to include ('game need 2 gamers')
+  end
 end
