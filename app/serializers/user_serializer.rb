@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: users
@@ -11,12 +10,12 @@
 #  password_digest :string(60)       not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  score           :float            default(0.0), not null
 #
 # Indexes
 #
 #  index_users_on_email  (email) UNIQUE
 #
-
 
 class UserSerializer
   include FastJsonapi::ObjectSerializer
