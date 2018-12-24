@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "c756eafb-0535-46ce-a1bb-91563483f8fb",
+		"name": "test ping pong",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "games",
+			"item": [
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/games/7",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"games",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "game[player_id]",
+									"value": " 1",
+									"type": "text"
+								},
+								{
+									"key": "game[player_score]",
+									"value": " 19",
+									"type": "text"
+								},
+								{
+									"key": "game[opponent_id]",
+									"value": " 2",
+									"type": "text"
+								},
+								{
+									"key": "game[opponent_score]",
+									"value": " 21",
+									"type": "text"
+								},
+								{
+									"key": "game[played_at]",
+									"value": " \"2019-12-27T02:50:06.558-06:00\"",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{URL}}/games",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/games",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"games"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "leader_board",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/leader_board",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"leader_board"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URL}}/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

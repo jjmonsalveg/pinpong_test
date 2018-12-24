@@ -6,6 +6,15 @@
 2. Run `rails db:create db:migrate db:seed`
 4. Run `rails server`
 
+in other console:
+$ rake jobs:work
+
+## Reference API
+
+A. https://documenter.getpostman.com/view/688876/Rzn8RMyZ#565d2558-aed6-4acc-bdba-6b8b0be0e5a2
+
+B. Or import to Postman: /test ping pong.postman_collection.json
+
 ## Requirements
 
 The purpose of this API is to allow users to log their pingpong games and to
