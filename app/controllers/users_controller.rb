@@ -33,6 +33,12 @@ class UsersController < ApplicationController
     @user.destroy
   end
 
+  def leader_board
+    @users = User.leadboard.paginate(page: params[:page],
+                           per_page: params[:per_page])
+    render json: @users, each_serializer: UserRankSerializer
+  end
+
   private
 
   def find_user

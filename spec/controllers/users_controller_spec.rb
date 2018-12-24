@@ -110,4 +110,17 @@ RSpec.describe UsersController, type: :controller do
         change(User, :count).by(-1)
     end
   end
+
+  describe 'GET #leaderboard' do
+    let!(:player) { create(:user) }
+    let!(:opponent) { create(:user) }
+    let!(:game) { create(:player_win, player: player, opponent: opponent) }
+    it 'leaderboard' do
+      get :leader_board
+      expect(response).to be_successful
+      expect(response.content_type).to eq('application/json')
+      expect(JSON.parse(response.body)
+               .map { |user| user['id'] }).to eq([player.id, opponent.id])
+    end
+  end
 end

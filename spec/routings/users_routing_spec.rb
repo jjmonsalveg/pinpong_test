@@ -19,4 +19,9 @@ RSpec.describe 'routes for Users', type: :routing do
   it 'routes DELETE users' do
     expect(delete: '/users').to route_to(controller: 'users', action: 'destroy')
   end
+
+  it 'routes GET leader_board' do
+    expect(get: '/leader_board').to route_to(controller: 'users',
+                                             action: 'leader_board')
+  end
 end
