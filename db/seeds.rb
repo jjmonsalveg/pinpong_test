@@ -5,3 +5,28 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'faker'
+
+4.times do
+  User.create first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              email: Faker::Internet.email,
+              password: 'password'
+end
+results = [[19, 21], [21, 19], [24, 22], [9, 21]]
+
+# combinatorial = (4!)/(2!*2!) = (4*3*2*1)/(4) = 6 games
+# 1 vs 2, 1 vs 3, 1 vs 4, 2 vs 3, 2 vs 4, 3 vs 4
+(1..User.count).each do |i|
+  ((i + 1)..User.count).each do |j|
+    puts "jugador #{i} vs jugador #{j}"
+    board = results[rand(0..(results.size - 1))]
+    Game.create player_id: i,
+                opponent_id: j,
+                played_at: Time.now + rand(1..10).days,
+                player_score: board.first,
+                opponent_score: board.second
+
+  end
+end

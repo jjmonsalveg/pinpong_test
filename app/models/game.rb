@@ -38,7 +38,7 @@ class Game < ApplicationRecord
   end
 
   def extend?
-    scores? && player_score >= MIN_SCORE &&opponent_score >= MIN_SCORE
+    scores? && player_score >= MIN_SCORE && opponent_score >= MIN_SCORE
   end
 
   private
@@ -49,10 +49,10 @@ class Game < ApplicationRecord
 
   def valid_board
     errors[:base] << 'at least one score must exceed 21 points' unless any_finish_score?
-    errors[:base] << 'extend game difference of points is less than than 2' if valid_extend_game?
+    errors[:base] << 'extend game difference of points is less than than 2' if invalid_extend_game?
   end
 
-  def valid_extend_game?
+  def invalid_extend_game?
     extend? && score_difference != 2
   end
 
