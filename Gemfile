@@ -40,6 +40,7 @@ group :development, :test do
 
   # A Ruby static code analyzer, based on the community Ruby style guide.
   gem 'rubocop', require: false
+  gem 'annotate'
 end
 
 group :development do

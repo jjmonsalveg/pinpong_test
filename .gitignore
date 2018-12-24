@@ -78,3 +78,5 @@ pickle-email-*.html
 *.old
 *.jar
 xerial*.*
+/.rvmrc
+/.byebug_history
